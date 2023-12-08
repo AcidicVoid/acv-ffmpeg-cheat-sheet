@@ -43,11 +43,17 @@ This prompt assumes the input file comes with 240fps. We'll get a four times slo
 ffmpeg -y -i input.mp4 -vf "setpts=4.0*PTS" -r 60 output.mp4
 ```
 
+Slowdown via full CUDA hardware transcode with NVDEC and NVENC.  
+See: https://trac.ffmpeg.org/wiki/HWAccelIntro#CUDANVENCNVDEC
+```
+ffmpeg -hwaccel cuda -hwaccel_output_format cuda -threads 8 -i input.mp4 -c:v h264_nvenc -preset slow -vf "setpts=4.0*PTS" -r 60 output.mp4
+```
+
 ### Decimate frames
 See: https://stackoverflow.com/questions/37088517/remove-sequentially-duplicate-frames-when-using-ffmpeg  
 Uses CUDA in this case (not mandatory): https://docs.nvidia.com/video-technologies/video-codec-sdk/12.0/ffmpeg-with-nvidia-gpu/index.html
 ```
-ffmpeg -hwaccel cuda -i "input.mp4" -vf decimate=mixed=true "output.mp4"
+ffmpeg -hwaccel cuda -threads 8 -i input.mp4 -vf decimate=mixed=true output.mp4
 ```
 
 ### Change the framerate only
