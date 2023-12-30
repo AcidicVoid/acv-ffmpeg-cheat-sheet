@@ -61,3 +61,9 @@ Very simple!
 ```
 ffmpeg -i input.mp4 -filter:v fps=fps=60 -fps_mode vfr output.mp4
 ```
+
+### WAV to mp3
+Very simple!
+```
+ffmpeg -i input.wav -vn -ar 48000 -ac 2 -b:a 320k output.mp3
+```
