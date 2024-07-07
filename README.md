@@ -17,6 +17,9 @@ video from input_a and audio from input_b
 ```
 ffmpeg -i input_a.mp4 -i input_b.mp4 -c:v copy -c:a aac -b:a 48k -map 0:v:0 -map 1:a:0 output.mp4
 ```
+video from input_a and audio from input_b, better method with cuda
+```
+for %i in (*.mkv) do ffmpeg -hwaccel cuda -hwaccel_output_format cuda -threads 16 -i "%i" -map 0 -preset slow -vcodec h264_nvenc -crf 23 -c:a ac3 -c:s copy "%~ni.mkv"
 
 ### Convert mp4 to V9 webm
 Very simple!
